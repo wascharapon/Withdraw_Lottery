@@ -25,9 +25,9 @@ class WithdrawController extends Controller
             $withdrawModel->status = 'W';
             if($withdrawModel->save())
                 {
-                    $withdrawModel = $withdrawModel->get();
+                    $withdrawModel = $withdrawModel->first();
                    //line notify 8KjMM1yp6C6C6A3FlD8Ii95JgRWA7hWFnMK57iAe1kI
-                    return view('notify-line');
+                    return view('notify-line',['id_withdraw'=>$withdrawModel->id]);
                 }
             else
             {

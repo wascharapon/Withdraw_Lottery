@@ -56,6 +56,9 @@ Route::get('withdraw_form', function (Request $request) {
 })->name('auth.withdraw_form')->middleware('isLogged');
 
 
+Route::get('test', function () {
+    return view('master.user');
+});
 Route::get('home', function () {
     return view('home');
 })->name('auth.home')->middleware('isLogged');
