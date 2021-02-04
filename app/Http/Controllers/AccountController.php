@@ -40,7 +40,7 @@ class AccountController extends Controller
                 session()->put('id_fb', $account_count->id_fb);
                 session()->put('email_fb', $account_count->email);
                 session()->put('status', $account_count->status);
-                return redirect()->route('auth.welcome');
+                return redirect()->route('auth.home');
             }
         } catch (\Exception $e) {
             return redirect()->back();
@@ -90,13 +90,14 @@ class AccountController extends Controller
                     if ($acc_detail->save()) {
                         $accountModel->where('id_fb', $data_detail['id_fb'])->update(['status' => $create_status]);
                         session()->put('status', $create_status);
+                        return redirect()->route('auth.home');
                     }
                     else
                     {
                         return("e3");
                     }
                 } else {
-                    return dd($acc_detail->get());
+                    return redirect()->route('auth.home');
                 }
             } catch (\Exception $e) {
                 return dd('e2');

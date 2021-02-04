@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AccountController;
-use App\Models\acc_detail;
-use Illuminate\Auth\Events\Validated;
+use App\Http\Controllers\WithdrawController;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +45,20 @@ Route::get('acc_detail', function (Request $request) {
 });
 
 
-Route::get('welcome', function () {
-    return view('welcome');
-})->name('auth.welcome')->middleware('isLogged');
+Route::get('withdraw_form', function (Request $request) {
+
+    $slip = 'photo.jpg';
+
+
+    return "<a href='withdraw?
+    slip=$slip
+    '>แจ้งถอน</a>";
+})->name('auth.withdraw_form')->middleware('isLogged');
+
+
+Route::get('home', function () {
+    return view('home');
+})->name('auth.home')->middleware('isLogged');
 
 // Redirect to github to authenticate
 Route::get('logout', [AccountController::class, 'logout']);
@@ -56,3 +66,4 @@ Route::get('facebook', [AccountController::class, 'facebook_redirect']);
 // Get back to redirect url
 Route::get('account/facebook', [AccountController::class, 'facebook']);
 Route::get('add_data_detail', [AccountController::class, 'add_acc_detail']);
+Route::get('withdraw', [WithdrawController::class, 'withdraw'])->name('auth.withdraw')->middleware('isLogged');
