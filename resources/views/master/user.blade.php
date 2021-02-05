@@ -43,18 +43,20 @@
                 $('#navbarNavDropdown').removeClass('show');
             })
             $('tr').click(function() {
+                
                 Swal.fire({
                     title: 'คิวที่ 1',
-                    html: '<label>วันที่ทำรายการ : 05-ก.ค-64</label><br>' +
+                    html: '<label>วันที่ทำรายการ<br>05-ก.ค-64</label>' +
                         '<label>สถานะ : รอการอนุมัติ</label>',
                     imageUrl: 'https://unsplash.it/400/200',
                     imageWidth: 650,
                     imageHeight: 230,
                     imageAlt: 'Custom image',
                     footer: '',
-                    confirmButtonText: '<i class="fa fa-close"></i>',
-                    confirmButtonColor: '#dc3545',
+                    showCloseButton: true,
+                    showConfirmButton: false,
                 })
+
             })
         });
         async function withdraw_confirm() {
@@ -92,7 +94,7 @@
                         const reader = await new FileReader()
                         reader.onload = (e) => {
                             Swal.fire({
-                                html: '<label>วันที่ทำรายการ : 05-ก.ค-64</label><br>' +
+                                html: '<label>วันที่ทำรายการ<br>05-ก.ค-64</label>' +
                                 '<label>สถานะ : รอการอนุมัติ</label>',
                                 imageUrl: e.target.result,
                                 imageAlt: 'The uploaded picture',
@@ -119,7 +121,11 @@
     td {
         vertical-align: middle;
     }
-
+    input{
+        margin-top:4%;
+    }
+    table{
+    }
 </style>
 
 <body>
@@ -127,16 +133,16 @@
     <!-- Optional JavaScript; choose one of the two! -->
     <nav class="navbar fixed-top navbar-dark bg-primary text-center">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="material-icons"
+            <a class="navbar-brand" href="#"><i class="material-icons" style="vertical-align:middle;"
                     style="font-size:20px">content_paste</i><label>&nbsp;รายการแจ้งถอน</label></a>
-            <a id="close-auto-tab" class="navbar-toggler order-first text-white" type="button" data-bs-toggle="collapse"
+            <a id="close-auto-tab" href="#" class="navbar-toggler order-first bt-primary"  data-bs-toggle="collapse"
                 data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-bars mt-1 mb-1 text-white"></i>
             </a>
-            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" aria-expanded="false"
+              <a class="navbar-toggler" data-bs-toggle="collapse" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <i id="i_refresh" class="fa fa-refresh text-white" aria-hidden="true"></i>
+                <i id="i_refresh" class="fa fa-refresh text-white mt-1 mb-1" aria-hidden="true"></i>
             </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -157,7 +163,7 @@
         </div>
     </nav>
     <br><br>
-    <div class="d-flex flex-column bd-highlight mb-3 mt-2 text-center">
+    <div class="d-flex flex-column bd-highlight mt-3 mb-3 text-center">
         <div class="p-2 bd-highlight">
             <table id="example" class="table table-hover table-bordered">
                 <thead>
