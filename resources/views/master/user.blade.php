@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- นำเข้า  CSS จาก Bootstrap -->
-
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400&display=swap" rel="stylesheet">
     <!-- นำเข้า  CSS จาก dataTables -->
     <link rel="stylesheet" type="text/css"
         href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
@@ -31,86 +32,175 @@
         $(function() {
             //กำหนดให้  Plug-in dataTable ทำงาน ใน ตาราง Html ที่มี id เท่ากับ example
             $('#example').dataTable();
+            $('#i_refresh').click(function() {
+                $('#i_refresh').addClass('fa-spin');
+                setTimeout(function() {
+                    $('#i_refresh').removeClass('fa-spin');
+                }, 2000);
+            });
+            $('#example').click(function() {
+                $('#close-auto-tab').attr("aria-expanded", "false");
+                $('#navbarNavDropdown').removeClass('show');
+            })
+            $('tr').click(function() {
+                Swal.fire({
+                    title: 'คิวที่ 1',
+                    html: '<label>วันที่ทำรายการ : 05-ก.ค-64</label><br>' +
+                        '<label>สถานะ : รอการอนุมัติ</label>',
+                    imageUrl: 'https://unsplash.it/400/200',
+                    imageWidth: 650,
+                    imageHeight: 230,
+                    imageAlt: 'Custom image',
+                    footer: '',
+                    confirmButtonText: '<i class="fa fa-close"></i>',
+                    confirmButtonColor: '#dc3545',
+                })
+            })
         });
+        async function withdraw_confirm() {
+              const {
+                        value: file
+                    } = await Swal.fire({
+                title: 'กรุณาเลือกสลิปของท่าน',
+                input: 'file',
+                inputAttributes: {
+                    'accept': 'image/*',
+                    'aria-label': 'Upload your profile picture'
+                },
+                confirmButtonColor: '#28a745',
+                confirmButtonText: 'ตกลง',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                /*
+                preConfirm: (value) => {
+                    return fetch(`//api.github.com/users/${value}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText)
+                            }
+                            return response.json()
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+                     
+                }   */
+            })
+            if (file) {
+                        const reader = await new FileReader()
+                        reader.onload = (e) => {
+                            Swal.fire({
+                                html: '<label>วันที่ทำรายการ : 05-ก.ค-64</label><br>' +
+                                '<label>สถานะ : รอการอนุมัติ</label>',
+                                imageUrl: e.target.result,
+                                imageAlt: 'The uploaded picture',
+                                confirmButtonColor: 'green',
+                        confirmButtonText: 'ตกลง',
+                            })
+                        }
+                        reader.readAsDataURL(file)
+                    }
+        }
 
     </script>
 </head>
+<style>
+    body {
+        overflow-x: hidden;
+        font-family: 'Mitr', sans-serif;
+    }
+
+    .td_date {
+        font-size: 100%;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+</style>
 
 <body>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <nav class="navbar fixed-top navbar-dark bg-primary text-center">
         <div class="container-fluid">
-        <a class="navbar-brand" href="#"><i class="material-icons" style="font-size:20px">content_paste</i><label>&nbsp;รายการแจ้งถอน</label></a>
-        <a class="navbar-toggler order-first text-white" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="fa fa-bars"></i>
-        </a>
-        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa fa-refresh text-white" aria-hidden="true"></i>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-            </ul>
+            <a class="navbar-brand" href="#"><i class="material-icons"
+                    style="font-size:20px">content_paste</i><label>&nbsp;รายการแจ้งถอน</label></a>
+            <a id="close-auto-tab" class="navbar-toggler order-first text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i id="i_refresh" class="fa fa-refresh text-white" aria-hidden="true"></i>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">โปรไฟล์</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ติดต่อเรา</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ออกจากระบบ</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </nav>
     <br><br>
     <div class="d-flex flex-column bd-highlight mb-3 mt-2 text-center">
         <div class="p-2 bd-highlight">
-            <table id="example" class="table table-striped table-bordered">
+            <table id="example" class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>คิว</th>
-                        <th style="width:30%">ใบแจ้ง</th>
+                        <th style="width:30%">สลิป</th>
                         <th>วันที่</th>
                         <th>สถานะ</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>w1</td>
-                        <td><img class="w-100"
-                                src="https://www.matichon.co.th/wp-content/uploads/2020/12/15%E0%B9%80%E0%B8%B1%E0%B8%B2%E0%B9%80.jpg">
+                        <td>q50</td>
+                        <td><img class="w-100" src="https://unsplash.it/400/200">
                         </td>
-                        <td>05/02/2564</td>
-                        <td>รอการอนุมัติ</td>
+                        <td class="td_date">05-ก.ค-64</td>
+                        <td class="text-success">สำเร็จ</td>
                     </tr>
                     <tr>
-                        <td>w1</td>
-                        <td><img class="w-100"
-                                src="https://www.matichon.co.th/wp-content/uploads/2020/12/15%E0%B9%80%E0%B8%B1%E0%B8%B2%E0%B9%80.jpg">
+                        <td>q100</td>
+                        <td><img class="w-100" src="https://unsplash.it/400/200">
                         </td>
-                        <td>05/02/2564</td>
-                        <td>รอการอนุมัติ</td>
+                        <td class="td_date">05-ก.ค-64</td>
+                        <td class="text-danger">ไม่สำเร็จ</td>
                     </tr>
-                    <tr>
-                        <td>w1</td>
-                        <td><img class="w-100"
-                                src="https://www.matichon.co.th/wp-content/uploads/2020/12/15%E0%B9%80%E0%B8%B1%E0%B8%B2%E0%B9%80.jpg">
-                        </td>
-                        <td>05/02/2564</td>
-                        <td>รอการอนุมัติ</td>
-                    </tr>
+                    @for ($i = 1; $i < 2; $i++)
+                        <tr>
+                            <td>q{{ $i }}</td>
+                            <td><img class="w-100" src="https://unsplash.it/400/200">
+                            </td>
+                            <td class="td_date">05-ก.ค-64</td>
+                            <td class="text-warning">รออนุมัติ</td>
+                        </tr>
+                    @endfor
                 </tbody>
             </table>
         </div>
         <br><br>
         <nav class="navbar fixed-bottom navbar-dark bg-primary">
             <div class="container-fluid">
-                <button style="width: 100%" button type="button" class="btn btn-secondary btn-lg btn-block "
-                    class="btn btn-light "><i class="material-icons" style="vertical-align:middle;font-size: 36px">publish</i>แจ้งถอน</button>
+                <button style="front-size:120%" type="button" class="btn btn-block text-white"
+                    onclick="withdraw_confirm()" class="btn btn-light "><i class="material-icons"
+                        style="vertical-align:middle;">publish</i>แจ้งถอน</button>
             </div>
         </nav>
         <!-- Option 1: Bootstrap Bundle with Popper -->
