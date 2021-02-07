@@ -27,6 +27,10 @@
     </script>
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
     <script type="text/javascript">
         //คำสั่ง Jquery เริ่มทำงาน เมื่อ โหลดหน้า Page เสร็จ 
         $(function() {
@@ -42,12 +46,13 @@
                 $('#close-auto-tab').attr("aria-expanded", "false");
                 $('#navbarNavDropdown').removeClass('show');
             })
-            $('tr').click(function() {
-                
+
+            $('td').click(function() {
+
                 Swal.fire({
                     title: 'คิวที่ 1',
-                    html: '<label>วันที่ทำรายการ<br>05-ก.ค-64</label>' +
-                        '<label>สถานะ : รอการอนุมัติ</label>',
+                    html: '<label>วันที่ทำรายการ<br>05-ก.ค-64<br>สถานะ : รอการอนุมัติ</label>',
+
                     imageUrl: 'https://unsplash.it/400/200',
                     imageWidth: 650,
                     imageHeight: 230,
@@ -55,14 +60,43 @@
                     footer: '',
                     showCloseButton: true,
                     showConfirmButton: false,
+
+                })
+            })
+            $('#menu_contect_line').click(function() {
+                Swal.fire({
+                    title: '',
+                    html: '<label>หากท่านต้องการติดต่อผู้ให้บริการคลิกที่ลิ้งด้านล่าง หรือ สแกน QR-Code</label>',
+                    imageUrl: 'https://scontent.fkkc3-1.fna.fbcdn.net/v/t1.15752-9/145617723_179386857297316_6683483733813544784_n.jpg?_nc_cat=100&ccb=2&_nc_sid=ae9488&_nc_ohc=eadSCAPtDegAX9iaB1j&_nc_ht=scontent.fkkc3-1.fna&oh=c6bbed43d8bff805f621f9ee3918ad3b&oe=60443143',
+                    imageWidth: 650,
+                    imageHeight: 250,
+                    imageAlt: 'Custom image',
+                    footer: '<a class="text-danger" href=http://line.me/ti/g/lpZRkjtHLI>แจ้งปัญหา</a>',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                })
+                $('#navbarNavDropdown').removeClass('show');
+            })
+            $('#menu_profile').click(function() {
+                Swal.fire({
+                    title: '',
+                    html: '<label>หากท่านต้องการติดต่อผู้ให้บริการคลิกที่ลิ้งด้านล่าง หรือ สแกน QR-Code</label>',
+                    imageUrl: 'https://scontent.fkkc3-1.fna.fbcdn.net/v/t1.15752-9/145617723_179386857297316_6683483733813544784_n.jpg?_nc_cat=100&ccb=2&_nc_sid=ae9488&_nc_ohc=eadSCAPtDegAX9iaB1j&_nc_ht=scontent.fkkc3-1.fna&oh=c6bbed43d8bff805f621f9ee3918ad3b&oe=60443143',
+                    imageWidth: 650,
+                    imageHeight: 230,
+                    imageAlt: 'Custom image',
+                    footer: '<a class="text-danger" href=http://line.me/ti/g/lpZRkjtHLI>แจ้งปัญหา</a>',
+                    showCloseButton: true,
+                    showConfirmButton: false,
                 })
 
             })
         });
+
         async function withdraw_confirm() {
-              const {
-                        value: file
-                    } = await Swal.fire({
+            const {
+                value: file
+            } = await Swal.fire({
                 title: 'กรุณาเลือกสลิปของท่าน',
                 input: 'file',
                 inputAttributes: {
@@ -91,19 +125,18 @@
                 }   */
             })
             if (file) {
-                        const reader = await new FileReader()
-                        reader.onload = (e) => {
-                            Swal.fire({
-                                html: '<label>วันที่ทำรายการ<br>05-ก.ค-64</label>' +
-                                '<label>สถานะ : รอการอนุมัติ</label>',
-                                imageUrl: e.target.result,
-                                imageAlt: 'The uploaded picture',
-                                confirmButtonColor: 'green',
+                const reader = await new FileReader()
+                reader.onload = (e) => {
+                    Swal.fire({
+                        html: '<label>วันที่ทำรายการ<br>05-ก.ค-64</label><br><label>สถานะ : รอการอนุมัติ</label>',
+                        imageUrl: e.target.result,
+                        imageAlt: 'The uploaded picture',
+                        confirmButtonColor: 'green',
                         confirmButtonText: 'ตกลง',
-                            })
-                        }
-                        reader.readAsDataURL(file)
-                    }
+                    })
+                }
+                reader.readAsDataURL(file)
+            }
         }
 
     </script>
@@ -121,98 +154,20 @@
     td {
         vertical-align: middle;
     }
-    input{
-        margin-top:4%;
+
+    input {
+        margin-top: 4%;
     }
-    table{
-    }
+
+    table {}
+
 </style>
 
 <body>
 
-    <!-- Optional JavaScript; choose one of the two! -->
-    <nav class="navbar fixed-top navbar-dark bg-primary text-center">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="material-icons" style="vertical-align:middle;"
-                    style="font-size:20px">content_paste</i><label>&nbsp;รายการแจ้งถอน</label></a>
-            <a id="close-auto-tab" href="#" class="navbar-toggler order-first bt-primary"  data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fa fa-bars mt-1 mb-1 text-white"></i>
-            </a>
-              <a class="navbar-toggler" data-bs-toggle="collapse" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i id="i_refresh" class="fa fa-refresh text-white mt-1 mb-1" aria-hidden="true"></i>
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">หน้าแรก</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">โปรไฟล์</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ติดต่อเรา</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ออกจากระบบ</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <br><br>
-    <div class="d-flex flex-column bd-highlight mt-3 mb-3 text-center">
-        <div class="p-2 bd-highlight">
-            <table id="example" class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th>คิว</th>
-                        <th style="width:30%">สลิป</th>
-                        <th>วันที่</th>
-                        <th>สถานะ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>q50</td>
-                        <td><img class="w-100" src="https://unsplash.it/400/200">
-                        </td>
-                        <td class="td_date">05-ก.ค-64</td>
-                        <td class="text-success">สำเร็จ</td>
-                    </tr>
-                    <tr>
-                        <td>q100</td>
-                        <td><img class="w-100" src="https://unsplash.it/400/200">
-                        </td>
-                        <td class="td_date">05-ก.ค-64</td>
-                        <td class="text-danger">ไม่สำเร็จ</td>
-                    </tr>
-                    @for ($i = 1; $i < 2; $i++)
-                        <tr>
-                            <td>q{{ $i }}</td>
-                            <td><img class="w-100" src="https://unsplash.it/400/200">
-                            </td>
-                            <td class="td_date">05-ก.ค-64</td>
-                            <td class="text-warning">รออนุมัติ</td>
-                        </tr>
-                    @endfor
-                </tbody>
-            </table>
-        </div>
-        <br><br>
-        <nav class="navbar fixed-bottom navbar-dark bg-primary">
-            <div class="container-fluid">
-                <button style="front-size:120%" type="button" class="btn btn-block text-white"
-                    onclick="withdraw_confirm()" class="btn btn-light "><i class="material-icons"
-                        style="vertical-align:middle;">publish</i>แจ้งถอน</button>
-            </div>
-        </nav>
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
-        </script>
+    @yield('content')
+
+
 
 
 </body>
