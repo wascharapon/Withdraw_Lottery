@@ -103,7 +103,7 @@ class AccountController extends Controller
                 return dd('e2');
             }
         } else {
-            return dd('e1');
+            return redirect()->route('login_page');
         }
     }
 }

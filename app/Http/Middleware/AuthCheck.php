@@ -24,7 +24,7 @@ class AuthCheck
  
                 if($acc_detail_count == 0)
                 {
-                    return redirect('acc_detail');
+                    return redirect('add_detail');
                 }
                 else if($acc_detail_count == 1)
                 {

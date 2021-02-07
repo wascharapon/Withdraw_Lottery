@@ -23,9 +23,10 @@ Route::get('/clear-cache', function () {
 
 Route::get('/', function () {
     return view('login');
-});
+})->name('login_page');
 
-Route::get('acc_detail', function (Request $request) {
+
+Route::get('add_detail_active', function (Request $request) {
 
     $id_status=$request->session()->get('status');
     $first_name='wascharapon';
@@ -44,6 +45,10 @@ Route::get('acc_detail', function (Request $request) {
     '>เพิ่มข้อมูล</a>";
 });
 
+Route::get('add_detail', function (Request $request) {
+
+   return  view('add_detail');
+});
 
 Route::get('withdraw_form', function (Request $request) {
 
@@ -55,17 +60,17 @@ Route::get('withdraw_form', function (Request $request) {
     '>แจ้งถอน</a>";
 })->name('auth.withdraw_form')->middleware('isLogged');
 
-
 Route::get('test', function () {
     return view('master.user');
 });
+
 Route::get('home', function () {
     return view('home');
 })->name('auth.home')->middleware('isLogged');
 
 // Redirect to github to authenticate
-Route::get('logout', [AccountController::class, 'logout']);
-Route::get('facebook', [AccountController::class, 'facebook_redirect']);
+Route::get('logout', [AccountController::class, 'logout'])->name('logout');
+Route::get('facebook', [AccountController::class, 'facebook_redirect'])->name('login_facebook');
 // Get back to redirect url
 Route::get('account/facebook', [AccountController::class, 'facebook']);
 Route::get('add_data_detail', [AccountController::class, 'add_acc_detail']);
